@@ -27,28 +27,33 @@ int main (int argc, char *argv[])
 		printf("The file was not successfully opened.\n");
 		exit(1);
 	}
-	
+//Set variables
 	int counter = 0;
-	int x = 0, sumx = 0;
-	int y = 0, sumy = 0;
-	int sumxy = 0;
-	int sumx2 = 0;
-	char ch;
-	int zone[10];
+	float x = 0.0, sumx = 0.0;
+	float y = 0.0, sumy = 0.0;
+	float sumxy = 0.0;
+	float sumx2 = 0.0;
 
+//Save variables from file
 	while (!feof(zone1))
 	{
-		zone[counter] = ch;
-		x = ch[counter] - '0';
-		x += sumx;
+		zone1[counter] = x;
+		sumx += x;
+		sumx2 += x*x;
 		counter++;
 
 		zone1[counter] = y;
-		y += sumy;
+		sumy += y;
+		sumxy += x*y;
 		counter++;
 	}
+//Calculate values
 
-	fclose(zone1);
+	float m, b;
+	m = (x*y - 4.0*sumxy)/(x*x - 4.0*sumx2);
+	b = (x*sumxy - sumx2*y)/(x*x - 4.0*sumx2);
+	printf("m = %1.3f	b = %1.3f", m, b);
+
 	return 0;
 }
 /* Function Defenitions */
